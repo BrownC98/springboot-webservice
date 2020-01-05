@@ -1,15 +1,15 @@
 {{>layout/header}} <!-- 현재 머스테치 파일을 기준으로 다른 파일을 가져옴 -->
 
-<h1>스프링부트로 시작하는 웹 서비스 Ver.2</h1>
+<h1>스프링 부트로 시작하는 웹 서비스</h1>
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-6">
             <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
             {{#userName}}
                 Logged in as: <span id="user">{{userName}}</span>
-                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-            {{/userName}}
-            {{^userName}}
+                <a href="/logout" class="btn btn-info active" role="button">Logout</a> <!-- 스프링 시큐리티에서 컨트롤러를 기본제공하는 로그아웃 url  -->
+            {{/userName}}                                                              <!-- 추후에 SecurityConfig 클래스에서 URL 변경이 가능하다.  -->
+            {{^userName}} <!-- ^ 은 not 을 의미한다 , 밑에 google url 도 스프링 시큐리티에서 기본제공하는 url이다. -->
                 <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
                 <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
             {{/userName}}
@@ -27,7 +27,7 @@
         </tr>
         </thead>
         <tbody id="tbody">
-        {{#posts}} <!-- posts List 순회 #은 반복문이다 indexController 참고 -->
+        {{#posts}} <!-- posts List 순회 컬렉션형은 자동으로 순회문이 실행된다. indexController 참고 -->
             <tr>    <!-- posts List 에서 추출한 객체의 필드 -->
                 <td>{{id}}</td>
                 <td><a href="/posts/update/{{id}}">{{title}}</a></td>
