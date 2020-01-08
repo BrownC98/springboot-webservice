@@ -15,8 +15,13 @@ cache:
 
 script: "./gradlew clean build"
 
+# travis 프로젝트 설치 전에 실행되는 스크립트
+before_install:
+    - chmod +x gradlew
+
 # CI 실행완료 시 메일로 알람
 notifications:
   email:
     recipients:
       - kal029@naver.com
+
