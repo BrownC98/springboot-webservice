@@ -7,7 +7,6 @@ branches:
     - master
 
 # Travis CI 서버의 HOME
-
 cache:
   directories:
     - '$HOME/.m2/repository'
@@ -18,6 +17,22 @@ script: "./gradlew clean build"
 # travis 프로젝트 설치 전에 실행되는 스크립트
 before_install:
     - chmod +x gradlew
+
+before_deploy: # code deploy 는 jar 를 인식 못하므로 프로젝트를 zip 파일로 압축한다.
+  - zip -r springboot-webservice *
+  - mkdir -p deploy
+  - mv springboot-webservice.zip deploy/springboot-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo setting 에 설정된값
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: awskal-springboot-build # S3 버킷 이름
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일 접근권한을 private 로
+    local_dir: deploy # before_deploy 에서 생성한 디렉토리
+    wait-until-deployed: true
 
 # CI 실행완료 시 메일로 알람
 notifications:
