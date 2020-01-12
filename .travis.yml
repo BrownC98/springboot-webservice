@@ -16,7 +16,7 @@ script: "./gradlew clean build"
 
 # travis 프로젝트 설치 전에 실행되는 스크립트
 before_install:
-    - chmod +x gradlew
+  - chmod +x gradlew
 
 before_deploy: # code deploy 는 jar 를 인식 못하므로 프로젝트를 zip 파일로 압축한다.
   - zip -r springboot-webservice *
@@ -33,10 +33,11 @@ deploy:
     acl: private # zip 파일 접근권한을 private 로
     local_dir: deploy # before_deploy 에서 생성한 디렉토리
     wait-until-deployed: true
-# code deploy 에 배포 요청
+
+  # code deploy 에 배포 요청
   - provider: codedeploy
       access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
-      secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+      secret_access_key: $AWS_SECRET_KEY # Travis repo settings에a 설정된 값
       bucket: awskal-springboot-build # S3 버킷
       key: springboot-webservice.zip # 빌드 파일을 압축해서 전달
       bundle_type: zip
