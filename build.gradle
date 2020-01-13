@@ -5,7 +5,8 @@ plugins {
 }
 
 group = 'com.kal.book'
-version = '0.0.1-SNAPSHOT'
+// 빌드할 때 마다 그 시간이 버전에 추가됨
+version = '1.0.1-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = '8'
 
 configurations {
